@@ -1,0 +1,14 @@
+{
+  "name": "personal-os-dashboard",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Personal OS — Offline Productivity Dashboard (Tauri + SQLite)",
+  "scripts": {
+    "dev": "tauri dev",
+    "build": "tauri build",
+    "serve": "python -m http.server 8080 --directory src"
+  },
+  "devDependencies": {
+    "@tauri-apps/cli": "^2"
+  }
+}

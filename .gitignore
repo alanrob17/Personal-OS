@@ -1,0 +1,22 @@
+# OS files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Editors
+.vscode/
+.idea/
+
+# Dependencies, build artifacts & logs
+node_modules/
+src-tauri/target/
+*.log
+
+# Local databases & personal backup exports
+*.db
+*.db-wal
+*.db-shm
+personal-os-backup-*.json
+
+# My personal config files
+*.bak
