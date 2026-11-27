@@ -227,7 +227,7 @@ export function openSubscriptionModal(sub) {
     '</div>' +
     '<div class="form-row">' +
       '<div class="form-field">' +
-        '<label class="form-label" for="subCost">Cost (USD) <span class="req">*</span></label>' +
+        '<label class="form-label" for="subCost">Cost (AUD) <span class="req">*</span></label>' +
         '<input id="subCost" class="form-input" type="number" step="0.01" min="0" value="' + (isEdit ? escapeHtml(sub.cost) : '') + '" placeholder="0.00">' +
       '</div>' +
       '<div class="form-field">' +

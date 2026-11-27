@@ -2598,16 +2598,16 @@
       }
 
       function formatCurrency(amount) {
-        return new Intl.NumberFormat('en-US', {
+        return new Intl.NumberFormat('en-AU', {
           style: 'currency',
-          currency: 'USD',
+          currency: 'AUD',
           minimumFractionDigits: 2,
           maximumFractionDigits: 2
         }).format(Number(amount) || 0);
       }
 
       function formatNumber(num) {
-        return new Intl.NumberFormat('en-US', {
+        return new Intl.NumberFormat('en-AU', {
           maximumFractionDigits: 2
         }).format(roundClean(Number(num) || 0));
       }
@@ -2663,7 +2663,7 @@
         if (!d) return '';
         const today = getTodayDate();
         const showYear = includeYear !== undefined ? includeYear : d.getFullYear() !== today.getFullYear();
-        return d.toLocaleDateString('en-US', showYear
+        return d.toLocaleDateString('en-AU', showYear
           ? { month: 'short', day: 'numeric', year: 'numeric' }
           : { month: 'short', day: 'numeric' }
         );
@@ -2965,7 +2965,7 @@
         const subEl = document.getElementById('topbarSubtitle');
         const ctaBtn = document.getElementById('topbarPrimaryBtn');
 
-        const todayFull = getTodayDate().toLocaleDateString('en-US', {
+        const todayFull = getTodayDate().toLocaleDateString('en-AU', {
           weekday: 'long',
           month: 'long',
           day: 'numeric',
@@ -3939,7 +3939,7 @@
         });
 
         const firstOfMonth = new Date(year, month, 1);
-        const monthLabel = firstOfMonth.toLocaleDateString('en-US', { month: 'long', year: 'numeric' });
+        const monthLabel = firstOfMonth.toLocaleDateString('en-AU', { month: 'long', year: 'numeric' });
         const startWeekday = firstOfMonth.getDay(); // 0 = Sun
         const daysInMonth = new Date(year, month + 1, 0).getDate();
         const totalCells = Math.ceil((startWeekday + daysInMonth) / 7) * 7;
@@ -4054,7 +4054,7 @@
           listEvents.forEach(function (ev) {
             const d = parseLocalDate(ev.date);
             const delta = d ? diffDays(today, d) : 0;
-            const monStr = d ? d.toLocaleDateString('en-US', { month: 'short' }) : '';
+            const monStr = d ? d.toLocaleDateString('en-AU', { month: 'short' }) : '';
             const dayNum = d ? d.getDate() : '';
             const isPast = delta < 0;
             const isEvToday = delta === 0;
@@ -4069,7 +4069,7 @@
                 '<div class="event-item-body">' +
                   '<div class="event-item-title">' + escapeHtml(ev.title) + '</div>' +
                   '<div class="event-item-meta">' +
-                    '<span>' + (d ? d.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric', year: 'numeric' }) : ev.date) + '</span>' +
+                    '<span>' + (d ? d.toLocaleDateString('en-AU', { weekday: 'short', month: 'short', day: 'numeric', year: 'numeric' }) : ev.date) + '</span>' +
                     '<span class="badge ' + badgeClass + '">' + formatRelativeDays(delta) + '</span>' +
                   '</div>' +
                   (ev.notes ? '<div class="event-item-notes">' + escapeHtml(ev.notes) + '</div>' : '') +
@@ -4434,7 +4434,7 @@
           '</div>' +
           '<div class="form-row">' +
             '<div class="form-field">' +
-              '<label class="form-label" for="subCost">Cost (USD) <span class="req">*</span></label>' +
+              '<label class="form-label" for="subCost">Cost (AUD) <span class="req">*</span></label>' +
               '<input id="subCost" class="form-input" type="number" step="0.01" min="0" value="' + (isEdit ? escapeHtml(sub.cost) : '') + '" placeholder="0.00">' +
             '</div>' +
             '<div class="form-field">' +

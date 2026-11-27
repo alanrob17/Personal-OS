@@ -424,10 +424,59 @@ npm run dev
 
 <span class="hljs-comment"># Build a standalone Windows executable &amp; installer</span>
 npm run build
+
+<span class="hljs-comment"># Build a Debian/Linux Mint .deb package (when running on Linux)</span>
+npm run build:deb
 </div></code></pre>
-<p>When running in Tauri, your SQLite database is stored permanently on Windows at:</p>
-<pre class="hljs"><code><div>%APPDATA%\com.personalos.dashboard\personal-os.db
+<p>When running in Tauri, your SQLite database is stored permanently on disk:</p>
+<ul>
+<li><strong>Windows:</strong> <code>%APPDATA%\com.personalos.dashboard\personal-os.db</code></li>
+<li><strong>Linux Mint:</strong> <code>~/.local/share/com.personalos.dashboard/personal-os.db</code></li>
+</ul>
+<h3 id="building-a-deb-installer-on-linux-mint">Building a <code>.deb</code> Installer on Linux Mint</h3>
+<p>Tauri compiles native desktop installers on the target OS (a <code>.deb</code> must be built on Linux, not Windows). On a Linux Mint 21.x or 22.x machine:</p>
+<ol>
+<li>
+<p><strong>Install prerequisites (once):</strong></p>
+<ul>
+<li><strong>System packages:</strong><pre class="hljs"><code><div><span class="hljs-built_in">sudo</span> apt-get update
+<span class="hljs-built_in">sudo</span> apt-get install -y build-essential curl wget file libxdo-dev libssl-dev libayatana-appindicator3-dev librsvg2-dev libwebkit2gtk-4.1-dev pkg-config
 </div></code></pre>
+</li>
+<li><strong>Rust (<code>&gt;= 1.87.0</code>):</strong><pre class="hljs"><code><div>curl --proto <span class="hljs-string">&#x27;=https&#x27;</span> --tlsv1.2 https://sh.rustup.rs -sSf | sh
+<span class="hljs-built_in">source</span> <span class="hljs-string">&quot;<span class="hljs-variable">$HOME</span>/.cargo/env&quot;</span>
+</div></code></pre>
+</li>
+<li><strong>Node.js (v20+ LTS) &amp; npm:</strong> install via <code>apt</code>, <code>nvm</code>, or <a href="https://nodejs.org/">nodejs.org</a>.</li>
+</ul>
+</li>
+<li>
+<p><strong>Build the <code>.deb</code> package:</strong></p>
+<pre class="hljs"><code><div><span class="hljs-built_in">chmod</span> +x scripts/build-deb.sh
+./scripts/build-deb.sh
+</div></code></pre>
+<p><em>(You can also pass <code>./scripts/build-deb.sh --install-deps</code> to have the script run the <code>apt-get</code> prerequisite install automatically, or run <code>npm install &amp;&amp; npm run build:deb</code> directly.)</em></p>
+</li>
+<li>
+<p><strong>Install on Linux Mint:</strong></p>
+<pre class="hljs"><code><div><span class="hljs-built_in">sudo</span> apt install ./src-tauri/target/release/bundle/deb/*.deb
+</div></code></pre>
+<p><em>(Or double-click the <code>.deb</code> file in Nemo to open it with GDebi.)</em></p>
+</li>
+<li>
+<p><strong>Uninstall later (optional):</strong></p>
+<pre class="hljs"><code><div><span class="hljs-built_in">sudo</span> apt remove personal-os-dashboard
+</div></code></pre>
+</li>
+</ol>
+<blockquote>
+<p><strong>Note:</strong> <code>scripts/build-deb.sh</code> uses Unix LF line endings (<code>.gitattributes</code> enforces <code>*.sh text eol=lf</code>). If you copy files from Windows to Linux Mint via a ZIP or USB drive rather than Git, run <code>chmod +x scripts/build-deb.sh</code> before executing it.</p>
+</blockquote>
+<h3 id="building-the-deb-from-windows-via-docker">Building the <code>.deb</code> from Windows via Docker</h3>
+<p>If Docker Desktop is running on Windows, you can build a Linux Mint 21.x/22.x-compatible <code>.deb</code> (via Ubuntu 22.04) directly into <code>dist-linux/</code>:</p>
+<pre class="hljs"><code><div>npm run build:deb:docker
+</div></code></pre>
+<p>The exported installer is written to <code>dist-linux/*.deb</code>.</p>
 <h3 id="browser-mode-localstorage-fallback">Browser Mode (<code>localStorage</code> fallback)</h3>
 <p>You can also serve <code>src/</code> in any browser without compiling Rust:</p>
 <pre class="hljs"><code><div>npm run serve

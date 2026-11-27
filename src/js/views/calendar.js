@@ -36,7 +36,7 @@ export function renderCalendar(root) {
   });
 
   const firstOfMonth = new Date(year, month, 1);
-  const monthLabel = firstOfMonth.toLocaleDateString('en-US', { month: 'long', year: 'numeric' });
+  const monthLabel = firstOfMonth.toLocaleDateString('en-AU', { month: 'long', year: 'numeric' });
   const startWeekday = firstOfMonth.getDay(); // 0 = Sun
   const daysInMonth = new Date(year, month + 1, 0).getDate();
   const totalCells = Math.ceil((startWeekday + daysInMonth) / 7) * 7;
@@ -151,7 +151,7 @@ export function renderCalendar(root) {
     listEvents.forEach(function (ev) {
       const d = parseLocalDate(ev.date);
       const delta = d ? diffDays(today, d) : 0;
-      const monStr = d ? d.toLocaleDateString('en-US', { month: 'short' }) : '';
+      const monStr = d ? d.toLocaleDateString('en-AU', { month: 'short' }) : '';
       const dayNum = d ? d.getDate() : '';
       const isPast = delta < 0;
       const isEvToday = delta === 0;
@@ -166,7 +166,7 @@ export function renderCalendar(root) {
           '<div class="event-item-body">' +
             '<div class="event-item-title">' + escapeHtml(ev.title) + '</div>' +
             '<div class="event-item-meta">' +
-              '<span>' + (d ? d.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric', year: 'numeric' }) : ev.date) + '</span>' +
+              '<span>' + (d ? d.toLocaleDateString('en-AU', { weekday: 'short', month: 'short', day: 'numeric', year: 'numeric' }) : ev.date) + '</span>' +
               '<span class="badge ' + badgeClass + '">' + formatRelativeDays(delta) + '</span>' +
             '</div>' +
             (ev.notes ? '<div class="event-item-notes">' + escapeHtml(ev.notes) + '</div>' : '') +

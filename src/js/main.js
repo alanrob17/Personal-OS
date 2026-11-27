@@ -49,7 +49,7 @@ function renderHeader() {
   const subEl = document.getElementById('topbarSubtitle');
   const ctaBtn = document.getElementById('topbarPrimaryBtn');
 
-  const todayFull = getTodayDate().toLocaleDateString('en-US', {
+  const todayFull = getTodayDate().toLocaleDateString('en-AU', {
     weekday: 'long',
     month: 'long',
     day: 'numeric',

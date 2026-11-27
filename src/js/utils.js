@@ -24,16 +24,16 @@ export function roundClean(num) {
 }
 
 export function formatCurrency(amount) {
-  return new Intl.NumberFormat('en-US', {
+  return new Intl.NumberFormat('en-AU', {
     style: 'currency',
-    currency: 'USD',
+    currency: 'AUD',
     minimumFractionDigits: 2,
     maximumFractionDigits: 2
   }).format(Number(amount) || 0);
 }
 
 export function formatNumber(num) {
-  return new Intl.NumberFormat('en-US', {
+  return new Intl.NumberFormat('en-AU', {
     maximumFractionDigits: 2
   }).format(roundClean(Number(num) || 0));
 }
@@ -89,7 +89,7 @@ export function formatDisplayDate(dateStr, includeYear) {
   if (!d) return '';
   const today = getTodayDate();
   const showYear = includeYear !== undefined ? includeYear : d.getFullYear() !== today.getFullYear();
-  return d.toLocaleDateString('en-US', showYear
+  return d.toLocaleDateString('en-AU', showYear
     ? { month: 'short', day: 'numeric', year: 'numeric' }
     : { month: 'short', day: 'numeric' }
   );
