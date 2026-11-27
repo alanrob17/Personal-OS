@@ -1,0 +1,9 @@
+.git
+node_modules
+src-tauri/target
+dist-linux
+dashboard.html
+*.db
+*.db-wal
+*.db-shm
+personal-os-backup-*.json

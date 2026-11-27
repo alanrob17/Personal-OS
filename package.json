@@ -6,6 +6,8 @@
   "scripts": {
     "dev": "tauri dev",
     "build": "tauri build",
+    "build:deb": "tauri build --bundles deb",
+    "build:deb:docker": "docker build --target export --output type=local,dest=dist-linux -f Dockerfile.deb .",
     "serve": "python -m http.server 8080 --directory src"
   },
   "devDependencies": {

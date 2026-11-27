@@ -10,6 +10,7 @@ desktop.ini
 # Dependencies, build artifacts & logs
 node_modules/
 src-tauri/target/
+dist-linux/
 *.log
 
 # Local databases & personal backup exports

@@ -65,13 +65,62 @@ npm run dev
 
 # Build a standalone Windows executable & installer
 npm run build
+
+# Build a Debian/Linux Mint .deb package (when running on Linux)
+npm run build:deb
 ```
 
-When running in Tauri, your SQLite database is stored permanently on Windows at:
+When running in Tauri, your SQLite database is stored permanently on disk:
 
-```text
-%APPDATA%\com.personalos.dashboard\personal-os.db
+- **Windows:** `%APPDATA%\com.personalos.dashboard\personal-os.db`
+- **Linux Mint:** `~/.local/share/com.personalos.dashboard/personal-os.db`
+
+### Building a `.deb` Installer on Linux Mint
+
+Tauri compiles native desktop installers on the target OS (a `.deb` must be built on Linux, not Windows). On a Linux Mint 21.x or 22.x machine:
+
+1. **Install prerequisites (once):**
+   - **System packages:**
+     ```bash
+     sudo apt-get update
+     sudo apt-get install -y build-essential curl wget file libxdo-dev libssl-dev libayatana-appindicator3-dev librsvg2-dev libwebkit2gtk-4.1-dev pkg-config
+     ```
+   - **Rust (`>= 1.87.0`):**
+     ```bash
+     curl --proto '=https' --tlsv1.2 https://sh.rustup.rs -sSf | sh
+     source "$HOME/.cargo/env"
+     ```
+   - **Node.js (v20+ LTS) & npm:** install via `apt`, `nvm`, or [nodejs.org](https://nodejs.org/).
+
+2. **Build the `.deb` package:**
+   ```bash
+   chmod +x scripts/build-deb.sh
+   ./scripts/build-deb.sh
+   ```
+   *(You can also pass `./scripts/build-deb.sh --install-deps` to have the script run the `apt-get` prerequisite install automatically, or run `npm install && npm run build:deb` directly.)*
+
+3. **Install on Linux Mint:**
+   ```bash
+   sudo apt install ./src-tauri/target/release/bundle/deb/*.deb
+   ```
+   *(Or double-click the `.deb` file in Nemo to open it with GDebi.)*
+
+4. **Uninstall later (optional):**
+   ```bash
+   sudo apt remove personal-os-dashboard
+   ```
+
+> **Note:** `scripts/build-deb.sh` uses Unix LF line endings (`.gitattributes` enforces `*.sh text eol=lf`). If you copy files from Windows to Linux Mint via a ZIP or USB drive rather than Git, run `chmod +x scripts/build-deb.sh` before executing it.
+
+### Building the `.deb` from Windows via Docker
+
+If Docker Desktop is running on Windows, you can build a Linux Mint 21.x/22.x-compatible `.deb` (via Ubuntu 22.04) directly into `dist-linux/`:
+
+```bash
+npm run build:deb:docker
 ```
+
+The exported installer is written to `dist-linux/*.deb`.
 
 ### Browser Mode (`localStorage` fallback)
 
